@@ -1,0 +1,45 @@
+%h1.my-3= @event.name
+.row
+  .col-8
+    .card.mb-2
+      %h5.card-header イベント内容
+      .card-body
+        %p.card-text= @event.content
+    .card.mb-2
+      %h5.card-header 開催時間
+      .card-body
+        %p.card-text= "#{l(@event.start_at, format: :long)} - #{l(@event.end_at, format: :long)}"
+    .card.mb-2
+      %h5.card-header 開催場所
+      .card-body
+        %p.card-text= @event.place
+    .card.mb-2
+      %h5.card-header 主催者
+      .card-body
+        = link_to('https://github.com/#{@event.owner.name', class: 'card-link') do
+          = image_tag @event.owner.image_url, width: 50, height: 50
+          = "@#{@event.owner.name}"
+  .col-4
+    .d-grid
+      - if @event.created_by?(current_user)
+        = link_to 'イベントを編集する', edit_event_path(@event), class: 'btn btn-info btn-lg'
+        = button_to 'イベントを削除する', event_path(@event), class: 'btn btn-danger btn-lg', method: :delete, form: { data: { turbo_confirm: '本当に削除しますか？' } }
+      - if logged_in?
+        %button.btn.btn-primary.btn-lg{ 'data-bs-toggle': 'modal', 'data-bs-target': '#createTicket' }
+          参加する
+        .modal.fade#createTicket
+          .modal-dialog
+            .modal-content
+              .modal-header
+                %h4.modal-title#dialogHeader 参加コメント
+                %button.close{ type: 'button', 'data-bs-dismiss': 'modal' } &times;
+              = form_with(model: @event.tickets.build, url: event_tickets_path(@event)) do |f|
+                .modal-body
+                  #createTicketErrors
+                    = f.text_field :comment, class: 'form-control'
+                .modal-footer
+                  %button.btn.btn-default{ type: 'button', 'data-bs-dismiss': 'modal' } キャンセル
+                  = f.button '送信', class: 'btn btn-primary'
+      - else
+        = link_to '参加する', new_event_ticket_path(@event), class: 'btn btn-primary btn-lg'
+

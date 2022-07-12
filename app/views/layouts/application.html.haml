@@ -11,5 +11,18 @@
   %body
     %header.navbar.navbar-expand-sm.navbar-light.bg-light
       .container
-        = link_to 'AwesomeEvents', root_path, class: 'navbar-brand'
-    .container= yield
+        = link_to 'AwesomeEvents', root_path, class: 'navbar-brand me-auto'
+        %ul.navbar-nav
+          %li.nav-item
+            = link_to 'イベントを作る', new_event_path, class: 'nav-link'
+          %li.nav-item
+            - if logged_in?
+              = link_to 'ログアウト', logout_path, class: 'nav-link border-0 bg-transparent', data: { turbo_method: :delete }
+            - else
+              = button_to 'GitHubでログイン', '/auth/github', class: 'nav-link border-0 bg-transparent', data: { turbo: false }
+    .container
+      - if flash.notice
+        .alert.alert-success= flash.notice
+      - if flash.alert
+        .alert.alert-danger= flash.alert
+      = yield

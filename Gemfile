@@ -73,5 +73,6 @@ end
 
 gem 'haml-rails'
 gem 'omniauth'
-gem 'omniauth-github'
+gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
 gem 'omniauth-rails_csrf_protection'
+gem 'rails-i18n'
