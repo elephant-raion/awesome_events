@@ -15,11 +15,14 @@
         %ul.navbar-nav
           %li.nav-item
             = link_to 'イベントを作る', new_event_path, class: 'nav-link'
-          %li.nav-item
             - if logged_in?
-              = link_to 'ログアウト', logout_path, class: 'nav-link border-0 bg-transparent', data: { turbo_method: :delete }
+              %li.nav-item
+                = link_to '退会', new_retirements_path, class: 'nav-link'
+              %li.nav-item
+                = link_to 'ログアウト', logout_path, class: 'nav-link border-0 bg-transparent', data: { turbo_method: :delete }
             - else
-              = button_to 'GitHubでログイン', '/auth/github', class: 'nav-link border-0 bg-transparent', data: { turbo: false }
+              %li.nav-item
+                = button_to 'GitHubでログイン', '/auth/github', class: 'nav-link border-0 bg-transparent', data: { turbo: false }
     .container
       - if flash.notice
         .alert.alert-success= flash.notice
