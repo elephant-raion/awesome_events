@@ -1,4 +1,6 @@
 class Event < ApplicationRecord
+  searchkick language: 'japanese'
+
   before_save :remove_image_if_user_accept
 
   attr_accessor :remove_image
@@ -22,6 +24,10 @@ class Event < ApplicationRecord
     return false unless user
 
     owner_id == user.id
+  end
+
+  def search_data
+    { name:, place:, content:, owner_name: owner&.name, start_at: }
   end
 
   private

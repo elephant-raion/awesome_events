@@ -73,9 +73,11 @@ group :test do
   gem "webdrivers"
 end
 
+gem 'elasticsearch'
 gem 'haml-rails'
 gem 'kaminari'
 gem 'omniauth'
 gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
 gem 'omniauth-rails_csrf_protection'
 gem 'rails-i18n'
+gem 'searchkick'
