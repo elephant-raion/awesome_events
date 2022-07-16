@@ -32,7 +32,6 @@ class EventTest < ActiveSupport::TestCase
     end_at = start_at - rand(1..30).hours
     event = FactoryBot.build(:event, start_at: start_at, end_at: end_at)
     event.valid?
-    debugger
     assert_not_empty(event.errors[:start_at])
   end
 end
