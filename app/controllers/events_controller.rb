@@ -41,7 +41,7 @@ class EventsController < ApplicationController
   private
 
   def event_params
-    params.require(:event).permit(%i[name place content start_at end_at])
+    params.require(:event).permit(%i[name place image remove_image content start_at end_at])
   end
 
   def set_own_event
